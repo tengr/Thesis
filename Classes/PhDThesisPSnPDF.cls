@@ -311,13 +311,13 @@ supported!}
         % Convert eps figures to pdf
         \RequirePackage{epstopdf}
         \RequirePackage[pdftex]{graphicx}
-	\DeclareGraphicsExtensions{.png, .jpg, .pdf}
-	\pdfcompresslevel=9
-	\graphicspath{{Figs/Raster/}{Figs/}}
+  \DeclareGraphicsExtensions{.png, .jpg, .pdf}
+  \pdfcompresslevel=9
+  \graphicspath{{Figs/Raster/}{Figs/}}
 \else
-	\RequirePackage{graphicx}
-	\DeclareGraphicsExtensions{.eps, .ps}
-	\graphicspath{{Figs/Vector/}{Figs/}}
+  \RequirePackage{graphicx}
+  \DeclareGraphicsExtensions{.eps, .ps}
+  \graphicspath{{Figs/Vector/}{Figs/}}
 \fi
 
 
@@ -613,10 +613,10 @@ supported!}
     \else
         \ifsetDVI
         % Odd and Even side Margin for binding and set viewmode for PDF
-	\RequirePackage[dvips,paper=\PHD@papersize,hmarginratio=1:1,
+  \RequirePackage[dvips,paper=\PHD@papersize,hmarginratio=1:1,
           vmarginratio=1:1,scale=0.75,bindingoffset=5mm]{geometry}
         \else
-	\RequirePackage[pdftex,paper=\PHD@papersize,hmarginratio=1:1,
+  \RequirePackage[pdftex,paper=\PHD@papersize,hmarginratio=1:1,
           vmarginratio=1:1,scale=0.75,bindingoffset=5mm]{geometry}
         \fi
     \fi
@@ -624,7 +624,7 @@ supported!}
     \if@twoside
         \hypersetup{pdfpagelayout=TwoPageRight}
     \else
-    	\hypersetup{pdfpagelayout=OneColumn}
+      \hypersetup{pdfpagelayout=OneColumn}
     \fi
 
 \else
@@ -649,12 +649,12 @@ supported!}
     \ifsetCustomMargin
     % Margin to be define in preamble using geometry package
     \else
-	% No Margin staggering on Odd and Even side
+  % No Margin staggering on Odd and Even side
         \ifsetDVI
-	\RequirePackage[dvips,paper=\PHD@papersize,hmarginratio=1:1,
+  \RequirePackage[dvips,paper=\PHD@papersize,hmarginratio=1:1,
           vmarginratio=1:1,scale=0.75]{geometry}
         \else
-	\RequirePackage[pdftex,paper=\PHD@papersize,hmarginratio=1:1,
+  \RequirePackage[pdftex,paper=\PHD@papersize,hmarginratio=1:1,
           vmarginratio=1:1,scale=0.75]{geometry}
         \fi
     \fi
@@ -725,9 +725,9 @@ wish to left align your text}
 % ************************** TOC and Hide Sections *****************************
 \newcommand{\nocontentsline}[3]{}
 \newcommand{\tochide}[2]{
-	\bgroup\let
-	\addcontentsline=\nocontentsline#1{#2}
-	\egroup}
+  \bgroup\let
+  \addcontentsline=\nocontentsline#1{#2}
+  \egroup}
 % Removes pagenumber appearing from TOC
 \addtocontents{toc}{\protect\thispagestyle{empty}}
 
@@ -797,10 +797,10 @@ wish to left align your text}
 
 % **************** Clear Header Style on the Last Empty Odd pages **************
 \renewcommand{\cleardoublepage}{\clearpage\if@twoside \ifodd\c@page\else%
-	\hbox{}%
-	\thispagestyle{empty}  % Empty header styles
-	\newpage%
-	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+  \hbox{}%
+  \thispagestyle{empty}  % Empty header styles
+  \newpage%
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
 
 % ******************************** Roman Pages *********************************
@@ -1117,19 +1117,19 @@ wish to left align your text}
 \newenvironment{abstract} {
 \ifPHD@abstract
 % Separate abstract as per Student Registry guidelines
-	\thispagestyle{empty}
-	\setsinglecolumn
-	\begin{center}
-		{ \Large {\bfseries {\@title}} \par}
-		{{\large \vspace*{1em} \@author} \par}
-	\end{center}
+  \thispagestyle{empty}
+  \setsinglecolumn
+  \begin{center}
+    { \Large {\bfseries {\@title}} \par}
+    {{\large \vspace*{1em} \@author} \par}
+  \end{center}
 
 \else
 % Normal abstract in the thesis
-	\cleardoublepage
-	\setsinglecolumn
-	\chapter*{\centering \Large Abstract}
-	\thispagestyle{empty}
+  \cleardoublepage
+  \setsinglecolumn
+  \chapter*{\centering \Large Abstract}
+  \thispagestyle{empty}
 \fi
 }
 
@@ -1214,12 +1214,11 @@ wish to left align your text}
 %  Now to compute the free vertical space
 \newlength{\PHD@titlepagespacing}
 \setlength{\PHD@titlepagespacing}{ \textheight %
-			- \totalheightof{\usebox{\PHD@Title}}
-			- \totalheightof{\usebox{\PHD@crest}}
-			- \totalheightof{\usebox{\PHD@author}}
-			- \totalheightof{\usebox{\PHD@dept}}
-			- \totalheightof{\usebox{\PHD@submission}}
-			- \totalheightof{\usebox{\PHD@collegedate}}
+      - \totalheightof{\usebox{\PHD@Title}}
+      - \totalheightof{\usebox{\PHD@crest}}
+      - \totalheightof{\usebox{\PHD@author}}
+      - \totalheightof{\usebox{\PHD@dept}}
+      - \totalheightof{\usebox{\PHD@submission}}
+      - \totalheightof{\usebox{\PHD@collegedate}}
 }
 }
-
