@@ -3,19 +3,26 @@
 %*******************************************************************************
 %\chapter{Introduction}  %Title of the First Introduction
 %\chapter*{Introduction}
-\chapter{Related Work}  %Title of the First Introduction
+\chapter{Core}  %Title of the First Introduction
 %\addcontentsline{tableofcontents}{chapter}{introduction}
 
 \ifpdf
-    \graphicspath{{RelatedWork/Figs/Raster/}{RelatedWork/Figs/PDF/}{Introduction/Figs/}}
+    \graphicspath{{Core/Figs/Raster/}{Core/Figs/PDF/}{Core/Figs/}}
 \else
-    \graphicspath{{RelatedWork/Figs/Vector/}{RelatedWork/Figs/}}
+    \graphicspath{{Core/Figs/Vector/}{Core/Figs/}}
 \fi
 
 %********************************** %First Section  **************************************
 \section{Data Collection} %Section - 1.1 
-In general, relation extraction refers two the process of discovering a relationship between entities in text. In the domain of natural language processing, the relation can be semantic, syntactic, etc, with semantic relations being the most important for knowledge discovery. Relations can be uniary, binary and complext with complex relations sometimes intermingled with the concept of events, In this project we are mainly concerned with binary relations as shown
+Our dataset is the Variome Corpus\cite{verspoor2013annotating}, which is openly accessible. \footnote{\href{http://www.opennicta.com.au/home/health/variome}\url{http://www.opennicta.com.au/home/health/variome}} \citet{verspoor2013annotating} gave a detailed illustration of the corpus construction process. I will summarize the main points here.
+\subsection{Background}
+The \emph{Human Variome Project}, or \emph{HVP}, the successor of the Human Genome Project, is a global initiative to collect all genetic variation information affecting human health\cite{ring2006human}. In particular, it acts as a liaison between individuals and organizations to integrate the genetic variants into databases that are open to the general public\cite{verspoor2013annotating}.\newline\newline
+The \emph{International Society for Gastrointestinal Hereditary Tumours (InSiGHT)}, is an international organization which aims to benefit patients with hereditary gastrointestinal(GI) tumours by research, education and personal assistance. 
 
+
+
+The corpus is Inspired by needs of inSIGHT database, but intended for broader applications Documents relevant to the genetics of Lynch syndrome, which covers inherited colon cancer as well as certain other cancers.Selected with PubMed Central To train tools for mining genetic variation and its relationship to disease
+Here in this information extraction task, we treat the manually annotated data as the \emph{gold data}, 
 \section{Algorithm}
 Named entity recoginition is the process of 
 Iis project 
