@@ -15,21 +15,23 @@
 
 %********************************** %First Section  **************************************
 \section{Motivation}\label{section1.1} %Section - 1.1 
-Despite being unstructured and only human-understandable, text is still our primary media for exchange of information\cite{witten2005text}. The prevalence of textual data presents a big challenge to computer-driven natural language understanding. \emph{Text mining} is the process of searching for patterns in natural language text using methods in computer science, linguistics, and statistics. \emph{Information extraction}, in particular, refers to the task of acquiring organized, structured and queryable format of data from the unstructured corpus. \newline\newline
-While text mining is widely used in areas like marketing and document verifying, it has received increased attention for its application to biomedical literatures\cite{kim2003genia,ananiadou2006text,krallinger2005text}. This trend stems from the direct need of biomedical workers and researchers to cope with data overload in their field. For instance, MEDLINE, the online database of United States National Library of Medicine has accumulated close to 0.8 million citations and 2.7 billion searches in 2014 alone\cite{MEDLINE:2015:Online}, with total citations reaching 22 million. In the meantime, biomedical databases, which contain structured information in genomics, proteomics, metabolomics, microarray gene expression, and phylogenetics\cite{altman2004editorial}, are still being populated manually. \emph{Biocurators}, the ``museum catalogers of the Internet age''\cite{wiki:biocurators} professional scientists who read biomedical publications, record relevant data and organize those data in accordance with the database schema. The sheer volume of publications has made manual The biomedical science field has seen huge growth in the volume of literature publications. Despite being in textual format, within those publications there exist valuable empirical findings about human genomics and patients and diseases which should be used to add to human knowledge.The amount of published literature in the biomedical domain has risen to a point which is beyond manually analysis. Since there might be contradicting theories existing in those literatures, 	limited amount of reading might be causing to draw the wrong conclusions. A systematic way of analyzing documents is really necessary. The relation extraction tool has a very promising applications for researchers and medical field workers, pharmaceutical companies, 	and the general public. The \emph{Biocuration Process} refers to the process in which people read biomedical articles and enter the entires to the database. With the rapid growth of published biomedical literature, tracking the information manually becomes increasingly difficult. 
-quote The goal of biomedical text mining is
-therefore to allow researchers to identify
-needed information more efficiently, quote
-Based on the information in 1.1 and 1.2, the aim of this project is to develop tools that can assist the human bio-curation process.
+\emph{Text mining} is the process of searching for patterns in natural language text using methods in computer science, linguistics, and statistics. Despite being unstructured and only human-understandable, text is still our primary media for exchange of information\cite{witten2005text}. The prevalence of textual data presents a big challenge to computer-driven natural language understanding. \emph{Information extraction}, in particular, refers to the task of acquiring organized, structured and queryable format of data from the unstructured corpus. \newline\newline
+While text mining is widely used in areas like marketing and document verifying, it has received increased attention for its application to biomedical literatures\cite{kim2003genia,ananiadou2006text,krallinger2005text}. This trend stems from the direct need of biomedical workers and researchers to cope with information explosion in their field. For instance, MEDLINE, the online database of United States National Library of Medicine, has accumulated nearly 0.8 million citations and 2.7 billion searches in 2014 alone\cite{MEDLINE:2015:Online}, with total citations reaching 22 million. Within these publications there are valuable research results that should add to human knowledge. In the meantime,  our primary knowledge base in life science - the biomedical databases, are still mostly being populated manually by \emph{biocurators} - the ``museum catalogers of the Internet age''\cite{wiki:biocurators}. They are professional scientists who read biomedical articles, record relevant data and organize them according to the biomedical database schema. The sheer volume of publications has made this process increasingly unrealistic\cite{cohen2005survey}.\newline\newline
+Not only does data overload make knowledge discovery demanding, it also leads to a decline in literature quality. Nowadays biomedical workers and researchers are more prone to drawing wrong conclusions because they simply can not read all the relevant publications, among which oftentimes contradicting results are reported. Needless to say, we are in desperate need of automatic tools for analyzing documents and extracting information.
+
+%********************************** %Second Section  *************************************
+\section{Research Question}\label{section1.2}%Section - 1.2
+This project looks to investigate the application of information extraction system ASM on relation extraction tasks, specifically regarding the relation extraction on the variome corpus.
+In this project we focus on the relation extraction among other informations. Biomedical relations covers a wide range of knowledge in this field.
+
+
+
+
+\section{Definitions and assumptions}
 
 \subsection{Relation Extraction} 
 Relation extraction is a form of information extraction where the semantic relations between entities are extracted.
 Specifically, in this project we focus on the relation extraction among other informations. Biomedical relations covers a wide range of knowledge in this field.
-
-%********************************** %Second Section  *************************************
-\section{Research Question}\label{section1.2}%Section - 1.2
-The project looks to investigate the application of  knowledge extraction system ASM on relation extraction tasks, specifically regarding the relation extraction on the variome corpus.
-In this project we focus on the relation extraction among other informations. Biomedical relations covers a wide range of knowledge in this field.
 
 
 %********************************** % Third Section  *************************************
@@ -37,5 +39,16 @@ In this project we focus on the relation extraction among other informations. Bi
 The thesis is organized as follows: chapter 1 will
 
 
-\section{Definitions and assumptions}
+
+
+
+
+systematic way of analyzing documents is really necessary. The relation extraction tool has a very promising applications for researchers and medical field workers, pharmaceutical companies, and the general public. 
+
+
+
+
+therefore to allow researchers to identify
+needed information more efficiently, quote
+Based on the information in 1.1 and 1.2, the aim of this project is to develop tools that can assist the human bio-curation process.
 
