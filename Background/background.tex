@@ -29,7 +29,12 @@ Because of the potential utility and complexity of the problem, NER has attracte
 quote: A survey of current work in biomedical text mining
 
 \section{Pattern based Methods}
-Pattern based methods 
+Relation extraction started from the task of extracting protein protein interactions from text by pattern matching. 
+First, a set of part-of-speech rules are applied to split the sentence into simple sentences, e.g. (P1 VB1 P2 VB2 CC P3) is splitted to P1 VB1 P2 and P1 VB2 P3. Next, a set of word patterns is applied to extract relations from these sentences. In addition, cite{Discovering patterns to extract protein–protein interactions
+from the literature: Part II} proposed an idea of minimal description length, as in finding a a pattern set that has the most balace between high presion, short rule length/lower rule complexity by dynamic programming to optimize the rule set.  Pattern based methods has achieved quite respectable performances, 
+
+
+
 \section{Co-corrence based methods}
 %********************************** %Second Section  *************************************
 \section{Rule-Based Methods}
