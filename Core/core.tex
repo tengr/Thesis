@@ -72,8 +72,14 @@ The rules generated from the previous step could, in theory, be used to match se
 	\caption{Exact Subgraph Matching}
 	\label{fig:ESM}   
 \end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{ASM}
+	\caption{Approximate Subgraph Matching}
+	\label{fig:ASM}   
+\end{figure}
 However, the above-mentioned matching approach would invariably lead to low recall, as the richness of language can almost always produce slightly different dependency graph structure representing exactly the same events between the same entities. For instance, Figure \ref{fig:ASM} shows a scenario where \emph{patient-cohort has mutation} should be extracted as an event of interest, but there is a slight mismatch in the subgraph patterns. This leads to the rationale behind approximate subgraph matching, which relaxes the matching process and allows for a penalty-based matching. The formula for calculating subgraph distance is: 
-\begin{equation}
+\begin{equation}\label{eq:3.1}
 \begin{split}
 GraphDist(SentenceGraph, RuleGraph) = \\
 w1 \times structDist(SentenceGraph, RuleGraph)  +\\ 
@@ -81,16 +87,13 @@ w2 \times labelDist(SentenceGraph, RuleGraph)   +\\
 w3 \times directionalityDist(SentenceGraph, RuleGraph)\\
 \end{split}
 \end{equation}
-$structDist$ is the structural difference between two subgraphs denoted by the distance between each pair of matched nodes. $labelDist$ and $directionalityDist$ are the difference in edge labels and edge directions respectively\cite{liu2013approximate}.
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{ASM}
-	\caption{Approximate Subgraph Matching}
-	\label{fig:ASM}   
-\end{figure}
+$structDist$ is the structural difference between two subgraphs denoted by the distance between each pair of matched nodes. $labelDist$ and $directionalityDist$ are the difference in edge labels and edge directions respectively\cite{liu2013approximate}. A different distance threshold $t$, is set for each event type such that if the subgraph distance calculated according to \ref{eq:3.1} is smaller than $t$, the subgraph is considered a match to the rule graph and the entity tokens are considered as having a relation of the type which the rule graph belongs to. Otherwise the sentence is counted as a mismatch.
 \subsection{Rule Optimization}
-To avoid learning the idiosyncrasies in the training data, an iterative rule set optimization process is executed. After the initial learning phase, each rule in the rule set is tested first on the training data to see if it get produce accurate enough predictions (above 0.25). The low performing rules are discarded as a consequence.   
+Finally, to avoid learning the idiosyncrasies in the training data, an iterative rule set optimization process is executed. After the initial learning phase, each rule in the rule set is tested on the training data first to see if it get produce accurate enough predictions (above 0.25). The low performing rules are discarded as a consequence.   
 \section{System Adaptation}
+As mentioned in \ref{section1.3}, the project aims at adapting an existing event extraction system on relation extraction tasks. The current ASM system was developed for the GENIA Event (GE) task of BioNLP Shared Task 2011 and 2013.\newline\newline
+\emph{BioNLP shared Task} series is a community-wide text mining challenge specifically for biomedical literatures. The \emph{Genia Event Extraction for NFkB knowledge base construction} (GE) task in BioNLP shared task 2013 aims at retrieving biological events such as gene expression, protein catabolism, protein binding and localization, etc. \footnote{A detailed event list can be found here: \href{http://bionlp.dbcls.jp/projects/bionlp-st-ge-2013/wiki/IEevaluation}{http://bionlp.dbcls.jp/projects/bionlp-st-ge-2013/wiki/IEevaluation}}
+The annotations are of the following format: The \emph{.a1} files list all the entities as shown in Figure \ref{fig:a1}, whereas the \emph{.a2} files list all the event triggers, followed by events as shown in Figure \ref{fig:a2}. An entity is annotated with its ID \emph{(T1)}, entity type \emph{(Protein)}, text offsets \emph{(230-233)}, and the textual token \emph{(CRC)}. Similarly, a trigger is annotated with its ID \emph{(T5)}, event type \emph{(Gene Expression)}, text offsets \emph{(234-242)}, and the textual token \emph{(probands)}. A trigger is usually a verb that ``triggers'' an event, but can be of other part-of-speech constituents. An event is annotated with an event ID ID \emph{(E3\_m)}, event type \emph{(Gene Expression)}, event trigger ID \emph{(T5)}, and event theme ID \emph{(T1)}. An event usually indicates a relationship between the event trigger and one or more entities.\newline\newline
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
@@ -113,13 +116,11 @@ To avoid learning the idiosyncrasies in the training data, an iterative rule set
 	\caption{Changing Annotation Format}
 	\label{fig:annotation_format}
 \end{figure}
-As mentioned in \ref{section1.3}, the project aims at adapting an existing event extraction system on relation extraction tasks. The existing ASM system was developed for the BioNLP Shared Task 2011 and 2013.\newline\newline \emph{BioNLP shared Task} series is a community-wide text mining challenge specifically for biomedical literatures. The GE task in shared task 2013 aims at retrieving events of the following format: The \emph{.a1} files list all the entities as in Figure \ref{fig:a1}, the \emph{.a2} files list all the event triggers, followed by events as in Figure \ref{fig:a2}. An entity is annotated with its ID, entity type, text offsets, and the textual token. The same goes for triggers. Events are annotated as a relation between the event trigger and one or more entities.\newline\newline
-Figure \ref{fig:ann} shows the \emph{Variome Annotation Format}. Different from the shared task, all the annotations would be in one \emph{.ann} file, with entities annotated the same way as in the shared task, and relations similar to events. However, relations do not have triggers at all. This distinction became a major challenge for this project. During the duration of this project, most of my attempts to fully adapt the system to relation extraction tasks have failed. In essence, the differentiation in the retrieval process lies in the event retrieval relies on the detection and prediction of a trigger word, where as the relation extraction does not. \newline\newline
-My only attempts that worked was transforming the annotation format of the Variome Corpus to that of the BioNLP Shared Task 2013, such that the original system would not break. The transformation is illustrated in this tables. The "has" relationship is transformed to "gene regulation" event, and "relatedTo" relationship is transformed to "Phosphyrilation" event, with the entity annotation slightly too. The entities would be of type "Protein" instead of the original entity types in the Variome Corpus. \textbf{The major bottleneck for this adaptation work is that the original system includes a hard-coded trigger detection and prediction process.} As for events detecting trigger words such as "activates" for gene expression is an important step for prediction. However, this process is not included at all in the event prediction process and to cope with the original system I had to add "fake triggers" for these events. As a result, the first entity of each event/relation annotation is added as the trigger for the notation. \newline\newline
-As shown in Figure \ref{fig:annotation_format}, the original Variome Annotation file (.ann) is splitted into two files(.a1 and .a2), The code checks if the entity exist in any event annotations. If not, the annotation will be ignored such as $T2$. Next the code checks if the annotation is a first argument or second argument. If the annotation is the first argument, it is treated as an event trigger, such as $T4, T5, T5\_2$. The trigger annotations are above the event annotations in the .a2 file where as the other entity annotations are in the .a2 file. 
-After this first attempt I had a few better ideas to add fake triggers, the best one being adding the entity types (patient-cohort), with parenthesis directly after the entity tokens and do a binding event. Due to the time constraints and these ideas being essentially fool's gold, I did not implement these ideas.
-
-\section{Results}
+Figure \ref{fig:ann} shows the \emph{Variome Annotation Format}. Different from the shared task, all the annotations would be in one \emph{.ann} file, with entities annotated the same way as in the shared task, and relations similar to events. However, as can be seen in Figure \ref{fig:ann}, relations do not have triggers at all. This distinction became a major challenge for this project as the existing ASM system has intrinsic expectation of triggers across the entire system. In the duration of this project, all of my attempts to fully adapt the system (change the code) to relation extraction tasks have failed.\newline\newline
+Not able to fully change the ASM system code, I decided to transform the annotation format of the Variome Corpus to be the BioNLP Shared Task format, such that the ASM system would not break. The transformation is illustrated in Figure \ref{fig:annotation_format}. The ``has'' relationship in the annotation is changed to be a ``gene regulation''event, and the ``relatedTo'' relationship is changed to be a ``Phosphyrilation'' event. The entities in the Variome Annotation would all be changed to type ``Protein''. \textbf{The major bottleneck for this adaptation work is that the original system includes a hard-coded trigger detection and prediction process.} Before extracting events, each word in the test sentence is given trigger score based on the trigger classifier (multi-class SVM) learned from training data. An event trigger is predicted before the subgraph connecting trigger node and entity nodes is matched against the rule graph. Detecting trigger words such as ``activates'' or a gene expression event is an important step for event extraction. However, this process is not included at all in the relation extraction task. To cope with the original system setup, I had to add some ``fake triggers'' for the relations masked as events. Therefore, the first entity argument of each relation annotation is added as the trigger in order for the relation to be regarded as a valid event after changing its annotation, as illustrated in Figure \ref{fig:a2}.\newline\newline
+To split the original Variome Annotation file (.ann) into two files (.a1 and .a2), I wrote code to scan through the entities and relations in the .ann file. For each entity, my code checks first if the entity exists in any relation annotations. If not, the annotation will be ignored, e.g. $T2$. Next the code checks if the entity is the first argument or the second argument of a relation annotation. If the entity is the first argument, it is treated as an event trigger, such as $T4, T5, T5\_2$ and put in the .a2 file, otherwise it is put in the .a1 file.
+\section{Results and Analysis}
+The overall result of the system is shown in table \ref{table:overall_result}. 
 \begin{table}[h]
 	\caption{Overall Result}
 	\centering
@@ -137,6 +138,31 @@ After this first attempt I had a few better ideas to add fake triggers, the best
 		\hline 
 	\end{tabular}
 \end{table}
-The overall result of the system is shown in table \ref{table:overall_result}, the main reason the system is not performing well is that it is not predicting the triggers words correctly, because I have chosen to treat entity annotations as triggers. Trigger prediction is usually treated as a classification problem where for every token in the test sentence, a score is assigned for labeling it as trigger for each event type. 
-
-Another important reason is the entity type is quite different from the proteins as proclaimed. 
+The main reason the system is not performing well is that it is not predicting the triggers words correctly. Take look at an example comparison between a predicted .a2 file in Figure \ref{fig:prediction} and the gold standard .a2 file in Figure \ref{fig:answer}, almost all the trigger predictions are incorrect.
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{prediction}
+		\caption{Prediction}
+		\label{fig:prediction}
+	\end{subfigure}             
+	\begin{subfigure}[b]{0.3\textwidth}
+		\includegraphics[width=\textwidth]{answer}
+		\caption{Answer}
+		\label{fig:answer}   
+	\end{subfigure}
+	\caption{Prediction vs. Answer}
+	\label{fig:prediction_answer}
+\end{figure}
+As mentioned before, trigger detection is treated as a classification problem by the system and the detected trigger is later included as a node in the subgraph matching process. Because I have chosen to treat entity annotations as triggers for the relations masked as events, the system would predict the triggers based on what it has learned about the triggers and the event(relation) type they corresponds to in the training data. Because the triggers are  ``fake triggers'', there exist far less deterministic relationship between ``fake triggers'' and the event(relation) types than a real trigger, e.g. ``activates'' for the event type ``gene expression''. Indeed, an entity can be involved in many event(relation) types, and might as well be evenly distributed among these event(relation) types. The trigger then would not be favored against any specific event(relation) type. It can be imagined that a trigger classifier built by this kind of training data would make every poor predictions.  
+\newline\newline
+ After this attempt, I have had a few better ideas to add ``fake triggers'' which I did not have time to implement, the best one being adding the entity types (patient-cohort), with parenthesis directly after the actual entity tokens in the sentence, and change the relation annotation to a binding event annotation. For instance as in Figure \ref{fig:fake_trigger}.
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[width=0.5\textwidth]{fake_trigger}
+ 	\caption{Adding Fake Triggers}
+ 	\label{fig:fake_trigger}   
+ \end{figure}
+ This step should be done for both the training and test data. That way it alleviates the trigger prediction problem as all relations masked as events would have some certain entity type as triggers, such that the trigger prediction accuracy would improve. However there still exists a problem because in the test data there is no way to know which entity would be a the first argument such that the trigger can be added to.
+  %In essence, the differentiation in the retrieval process lies in the event retrieval relies on the detection and prediction of a trigger word, where as the relation extraction does not.
+ %Another important reason is the entity type is quite different from the proteins as proclaimed. 
