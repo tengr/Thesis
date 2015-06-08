@@ -19,23 +19,31 @@
 While text mining is widely used in areas like marketing and document verifying, it has received increased attention for its application to biomedical literatures\cite{kim2003genia,ananiadou2006text,krallinger2005text}. This trend stems from the direct need of biomedical workers and researchers to cope with information explosion in their field. For instance, MEDLINE(Medical Literature Analysis and Retrieval System Online), the online database of United States National Library of Medicine, has accumulated nearly 0.8 million citations and 2.7 billion searches in 2014 alone\cite{MEDLINE:2015:Online}, with total citations reaching 25 million. Within these publications there are valuable research results that should add to human knowledge. In the meantime,  our primary knowledge base in life science - the biomedical databases, are still mostly being populated manually by \emph{biocurators} - the ``museum catalogers of the Internet age''\cite{wiki:biocurators}. They are professional scientists who read biomedical articles, record relevant data and organize them according to the biomedical database schema. The sheer volume of publications has made this process increasingly unrealistic\cite{cohen2005survey}.\newline\newline
 Not only does data overload make knowledge discovery demanding, it also leads to a decline in literature quality. Nowadays biomedical workers and researchers are more prone to drawing wrong conclusions because they simply can not read all the relevant publications, among which oftentimes contradicting results are reported. Needless to say, we are in desperate need of automatic tools for systematically analyzing documents and extracting information. In fact, it has been argued that text mining is required to improve the coverage of databases\cite{baumgartner2007manual}.
 
-
-\section{Definitions and Assumptions}
-Below are a list of terms which I will use throughout this thesis, detailed examples will be given in the relevant sections, but a general definition is first given here to avoid any confusions that might arise when reading the following paragraphs.
-\begin{itemize}
-	\item \emph{Relation Extraction:} In general, relation extraction refers two the process of discovering a relationship between entities in text. In the domain of natural language processing, the relation can be semantic, syntactic, etc, with semantic relations being the most important for knowledge discovery. Relations can be unary, binary and complex with complex relations sometimes intermingled with the concept of events, In this project we are mainly concerned with binary relations as shown. Relation extraction is a form of information extraction where the semantic relations between entities are extracted.
-	Specifically, in this project we focus on the relation extraction among other informations. Biomedical relations covers a wide range of knowledge in this field.
-	\item \emph{Event Extraction:} to be added
-\end{itemize}
-
 %********************************** %Second Section  *************************************
-\section{Research Question}\label{section1.2}%Section - 1.2
-This project looks to investigate the application of information extraction system Approximate Subgraph Matching (ASM)\cite{iu2013approximate},  on relation extraction tasks, specifically regarding the relation extraction on the variome corpus.
-In this project we focus on the relation extraction among other informations. Biomedical relations covers a wide range of knowledge in this field. As it turns out, this is not a trivial process, The relation extraction tool has a very promising applications for researchers and medical field workers, pharmaceutical companies, and the general public. 
-
-Relation extraction can be helpful in information search, knowledge discovery and hypothesis generation. 
+\section{Definitions and Assumptions}\label{section1.2}%Section - 1.2
+Below are a list of terms which I will use throughout this thesis, more detailed examples will be given in the relevant sections, but a general definition is first given here to avoid any confusions that might arise.
+\begin{itemize}
+	\item \emph{Relation Extraction:} In general, relation extraction refers to the process of discovering a relationship between entities in text. Relations can be unary (one-to-itself), binary (one-to-one) and more complex. In this project we are mainly concerned with binary relations between two entities. As illustrated in Figure \ref{fig:Relations_Example}, the sentence contains relations like \emph{families have p.Lys618A1a}, \emph{families have two(members)}, \emph{families have the LS(disease)}, etc. In the domain of natural language processing, the relation can be semantic or syntactic, with semantic relations being the most important for knowledge discovery. Specifically, semantic relations between biomedical entities such as protein-protein interactions and gene expressions cover a wide range of knowledge in this field and have driven numerous research work.
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{Relations_Example}
+		\caption{An Example of Relations Captured in a Sentence}
+		\label{fig:Relations_Example}   
+	\end{figure}
+	\item \emph{Event Extraction:} A biomedical event usually refers to a statement of molecular interaction in text \cite{bjorne2011generalizing}. Figure \ref{fig:Events_Example} shows several two protein catabolism events (pro), one binding event, two positive regulation events, and two gene expression events between respective entities.
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{Events_Example}
+		\caption{An Example of Events Captured in a Sentence}
+		\label{fig:Events_Example}   
+	\end{figure}
+\end{itemize}
+Both relation extraction and event extraction belongs to the broader concept of information extraction.
 
 %********************************** % Third Section  *************************************
-\section{Thesis Structure}\label{section1.3} %Section - 1.3
+\section{Research Question}\label{section1.3} %Section - 1.3
+This project looks to investigate the adaptation of event extraction system Approximate Subgraph Matching (ASM)\cite{liu2013approximate},  on relation extraction tasks, specifically regarding the relations in the Variome Corpus annotated with the Variome Annotation Schema\cite{verspoor2013annotating}. The effectiveness of the system in extracting relations between entities (disease, ethnicity, gender, gene, mutation, patient, etc.) will be evaluated. Since ASM is a supervised, rule-based data mining system developed solely for event extraction, it needs to be re-trained and carefully adapted to the new corpus. We believe such a relation extraction tool has very promising applications for biomedical researchers, doctors, pharmaceutical companies, and the general public. The extracted relations can be helpful in information search, knowledge discovery and hypothesis generation. 
+%In this project we focus on the relation extraction among other informations. Biomedical relations covers a wide range of knowledge in this field. As it turns out, this is not a trivial process, 
+\section{Thesis Structure}
 The remainder of the thesis is organized in the following manner. In Chapter 2, we discuss the related work of different algorithms used for relation extraction tasks including pattern-based methods, co-occurrence based methods, rule-based methods and kernel based methods. In Chapter 3, we discuss the Approximate Subgraph Matching(ASM) algorithm in detail and how the system previously used for event extraction in the BioNLP Shared Task 2013 was adapted for the relation extraction task for the Variome Corpus, together with evaluation of extraction results. In Chapter 4, we conclude our work and present future directions.
 
