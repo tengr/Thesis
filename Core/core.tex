@@ -16,32 +16,33 @@
 \section{Data Collection} %Section - 1.1 
 Our dataset is the Variome Corpus\cite{verspoor2013annotating}, which is openly accessible. \footnote{\href{http://www.opennicta.com.au/home/health/variome}\url{http://www.opennicta.com.au/home/health/variome}} \citet{verspoor2013annotating} gave a detailed illustration of the document selection and annotation process. I will summarize the main points here.
 \subsection{Background}
-A major part of the current biomedical research lies in understanding the relations between human genetic variation and disease phenotypes. The \emph{Human Variome Project}, or \emph{HVP}, is a global initiative to collect all genetic variation information affecting human health\cite{ring2006human}. In particular, it acts as a liaison between individuals and organizations to integrate the genetic variants into databases that are open to the general public\cite{verspoor2013annotating}. The \emph{International Society for Gastrointestinal Hereditary Tumours (InSiGHT)}, is an international organization which aims to benefit patients with hereditary gastrointestinal(GI) tumours by research, education and personal assistance. In 2008, InSiGHT and HVP began a collaboration which propels InSiGHT to refine its process in the integration and interpretation of genetic variants. Consequently, a substantial effort was made to understand the mutation of mismatch repair(MMR) genes, the cause of Lynch Syndrome - one of the main syndromes of GI cancer\cite{silva2009mismatch}. A total of 10 full-text articles were selected from PubMed Central\textregistered  by searching the common Lynch syndrome genes. These documents are mostly about inherited colon cancer. The annotation schema, also known as the Variome Annotation Schema\cite{verspoor2013annotating}, include 11 entity types and 13 relation types. as can be seen in the table here
+A major part of the current biomedical research lies in understanding the relations between human genetic variation and disease phenotypes. The \emph{Human Variome Project}, or \emph{HVP}, is a global initiative to collect all genetic variation information affecting human health\cite{ring2006human}. In particular, it acts as a liaison between individuals and organizations to integrate the genetic variants into databases that are open to the general public\cite{verspoor2013annotating}. The \emph{International Society for Gastrointestinal Hereditary Tumours (InSiGHT)}, is an international organization which aims to benefit patients with hereditary gastrointestinal(GI) tumours by research, education and personal assistance. In 2008, InSiGHT and HVP began a collaboration which propels InSiGHT to refine its process in the integration and interpretation of genetic variants. Consequently, a substantial effort was made to understand the mutation of mismatch repair(MMR) genes, the cause of Lynch Syndrome - one of the main syndromes of GI cancer\cite{silva2009mismatch}. A total of 10 full-text articles were selected from PubMed Central\textregistered  by searching the common Lynch syndrome genes. These documents are mostly about inherited colon cancer. The annotation schema, also known as the Variome Annotation Schema\cite{verspoor2013annotating}, include 11 entity types and 13 relation types. as can be seen in the table \ref{table:Variome_Relations}.\newline \newline
 \begin{table}
-	\caption{A nice looking table}
+	\caption{Variome Relation Types}
 	\centering
-	\label{table:nice_table}
-	\begin{tabular}{l c c c c}
+	\label{table:Variome_Relations}
+	\begin{tabular}{|c | c |c  |}
 		\hline 
-		\multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II} \\ 
-		\cline{2-5}
-		& mean & SD  & mean & SD  \\ 
+		{Relation Type} 
+		& Entity1 & Entity2\\ 
 		\hline
-		I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
-		
-		I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
-		
-		I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
-		
-		I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
-		
-		CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
-		
-		CBL & 11.88 & 0.05 & 13.11 & 0.04\\ 
+		relatedTo  & mutation & disease \\
+		relatedTo & disease & gene\\
+		relatedTo & disease & body-part\\
+		\hline 
+		has     & gene & mutation\\
+		has     & mutation & size\\
+		has     & disease & characteristic\\
+		has     & cohort-patient & age\\
+		has     & cohort-patient & characteristic\\
+		has     & cohort-patient & disease\\
+		has     & cohort-patient & ethnicity\\
+		has     & cohort-patient & gender\\
+		has     & cohort-patient & mutation\\
+		has     & cohort-patient & size \\
 		\hline 
 	\end{tabular}
 \end{table}
-
 In short, the corpus is Inspired by needs of inSIGHT database, but intended for broader applications. Documents relevant to the genetics of Lynch syndrome, which covers inherited colon cancer as well as certain other cancers. Selected with PubMed Central To train tools for mining genetic variation and its relationship to disease
 Here in this information extraction task, we treat the manually annotated data as the \emph{gold data}, 
 \section{Dependency Graph and Shortest Path}
@@ -71,60 +72,10 @@ To avoid learning the idiosyncrasies in the training data, an iterative rule set
 As mentioned in \ref{section1.3}, the project aims at adapting an existing system used for event-retrieval tasks on relation extraction tasks.
 \subsection{BioNLP Shared Tasks}
 BioNLP shared Task series is a community-wide text mining challenge specifically for biomedical literatures. The GE task in shared task 2013 aims at retireving events of the following format:
-\begin{table}
-	\caption{Events}
-	\centering
-	\label{table:events}
-	\begin{tabular}{l c c c c}
-		\hline 
-		\multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II} \\ 
-		\cline{2-5}
-		& mean & SD  & mean & SD  \\ 
-		\hline
-		I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
-		
-		I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
-		
-		I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
-		
-		I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
-		
-		CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
-		
-		CBL & 11.88 & 0.05 & 13.11 & 0.04\\ 
-		\hline 
-	\end{tabular}
-\end{table}
-
 The a1 files does (to be added), the a2 files does (to be added), 
 
 \subsection{Variome Annotation Schema}
-\begin{table}
-	\caption{Overall Result}
-	\centering
-	\label{table:overall_result}
-	\begin{tabular}{|c | c |c  |}
-		\hline 
-		{Relation Type} 
-		& Arg1 & Arg2\\ 
-		\hline
-		relatedTo  & mutation & disease \\
-		relatedTo & disease & gene\\
-		relatedTo & disease & body-part\\
-		\hline 
-		has     & gene & mutation\\
-		has     & mutation & size\\
-		has     & disease & characteristic\\
-		has     & cohort-patient & age\\
-		has     & cohort-patient & characteristic\\
-		has     & cohort-patient & disease\\
-		has     & cohort-patient & ethnicity\\
-		has     & cohort-patient & gender\\
-		has     & cohort-patient & mutation\\
-		has     & cohort-patient & size \\
-		\hline 
-	\end{tabular}
-\end{table}
+
 
 During the duration of this project, most of my attempts to fully adapt the system to relation extraction tasks have failed. In essence, the differentiation in the retrieval process lies in the event retrieval relies on the detection and prediction of a trigger word, where as the relation extraction does not. 
 
@@ -133,7 +84,7 @@ As a result, the first entity of each event/relation annotation is added as the 
 
 After this first attempt I had a few better ideas to add fake triggers, the best one being adding the entity types (patient-cohort), with parenthesis directly after the entity tokens and do a binding event. Due to the time constraints and these ideas being essentially fool's gold, I did not implement these ideas. 
 
-The results of my first attempt is shown in .
+The results of my first attempt is shown in table \ref{table:overall_result}.
 
 
 \section{Results}
