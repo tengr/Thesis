@@ -20,7 +20,7 @@ This chapter will explore the research related to this thesis. First we introduc
 While it is often the case that the accuracy of named entity recognition would have a significant impact on the performance of relation extraction, the two problems are usually treated separately. This allows the relevant tools for each problem to be evaluated independently. Therefore, in the following sections, the relation extraction methods usually have the named entity annotations given in their test data, so that the algorithm only needs to focus on extracting relations between known entities.
 \subsection{Pattern Based Methods}
 Pattern based relation extraction methods first saw its application in extracting protein-protein interactions\cite{hao2005discovering}. Initially, a set of part-of-speech rules are applied to split the syntactically complex sentence into simple sentences. For example, a sentence with part-of-speech tag sequence \emph{\big\{P1, VB1, P2, VB2, CC, P3\big\}} can be splitted to \emph{\big\{P1, VB1, P2\big\}} and \emph{\big\{P1, VB2, P3\big\}}. Then, a set of word patterns can be applied to extract relations from these simple sentences\cite{ono2001automated}. An example of that is shown in Figure \ref{fig:Word_Patterns}. 
-	\begin{figure}
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\textwidth]{Word_Patterns}
 		\caption{Word Patterns for Protein-Protein Interaction from \citet*{ono2001automated}}
@@ -37,7 +37,7 @@ Feature based relation extraction often takes a statistical machine learning app
 Semi-supervised methods address the scarcity of training data. Training data for relation extraction is extremely expensive because substantial human labor is required to read the documents and label each training instance. \citet*{craven1999constructing} first experimented distant supervision by automatically extracting relations from databases records, "weakly" labeling the training data with these relations, extracting patterns from the training data, and filtering out inconfident patterns. Similar approaches have been explored since \cite{bunescu2007learning,min2013distant,mintz2009distant}. Recently \citet*{ravikumar2012literature} used protein structure records in the Protein Data Bank for automatic creation of training data in protein-residue relation extraction. The problem with semi-supervised methods is that they could generate noisy patterns\cite{nebhi2013rule}. 
 
 \subsection{Kernel Methods}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.3\textwidth]{shallow_parse_tree}
 	\caption{Example of a Shallow Parse Tree \cite{zelenko2003kernel}}
